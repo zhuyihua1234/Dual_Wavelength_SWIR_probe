@@ -1,0 +1,10 @@
+raw_trans = load ('C:\Users\Daniel Fried\Desktop\Yihua\Dual_probe\RawImages\5_20_20\ip8_t_BP1380_OPR 20.dat');
+raw_ref = load ('C:\Users\Daniel Fried\Desktop\Yihua\Dual_probe\RawImages\5_20_20\ip8_r_BP1380_OPR 20.dat');
+trans = 65535 - uint16(16*raw_trans);
+ref = uint16(16*raw_ref);
+alpha = 1;
+img_addition = alpha*trans + (1-alpha)*ref;
+J = imrotate(img_addition,0,'bilinear','crop');
+%[I,rect] = imcrop(J);
+I = imcrop(J,rect);
+imshow(I);

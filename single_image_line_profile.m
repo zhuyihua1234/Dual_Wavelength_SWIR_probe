@@ -1,0 +1,2 @@
+imshow(img);
+improfile;
