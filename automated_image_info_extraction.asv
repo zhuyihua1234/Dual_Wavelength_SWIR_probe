@@ -1,13 +1,11 @@
-% Crop the binary mask and contrast images
-[cropped_mask,rect] = imcrop(mask);
-cropped_contrast_img = imcrop(contrast_img,rect);
+
 
 % Display the binary mask image
-imshow(cropped_mask);
+imshow(mask);
 title('Binary Mask');
 
 % Find connected components in the binary mask
-cc = bwconncomp(cropped_mask);
+cc = bwconncomp(mask);
 
 % Get properties of all connected components
 props = regionprops(cc, 'all');
@@ -25,7 +23,7 @@ clickedComponentIndex = 0;
 
 for i = 1:cc.NumObjects
     % Check if the clicked coordinates fall within the region's PixelIdxList
-    if ismember(sub2ind(size(cropped_mask), clickedRow, clickedColumn), cc.PixelIdxList{i})
+    if ismember(sub2ind(size(mask), clickedRow, clickedColumn), cc.PixelIdxList{i})
         clickedComponentIndex = i;
         break;
     end
@@ -38,7 +36,7 @@ if clickedComponentIndex > 0
     disp('Selected region properties have been loaded into the workspace.');
     
     % Display the selected region using its bounding box
-    selectedRegionImage = false(size(cropped_mask));
+    selectedRegionImage = false(size(mask));
     selectedRegionImage(cc.PixelIdxList{clickedComponentIndex}) = true;
     
     figure;
@@ -49,7 +47,7 @@ else
 end
 
 % Calculate the contrast within this ROI
-ROI_contrast = mean(cropped_contrast_img(selectedRegionImage));
+ROI_contrast = mean(contrast_img(selectedRegionImage));
 formattedLength = sprintf('%.6f', ROI_contrast);
 disp(['Mean ROI Contrast: ' formattedLength]);
 % Display Area of the ROI

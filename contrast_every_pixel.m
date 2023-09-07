@@ -16,9 +16,9 @@ choice = listdlg('PromptString', 'Select a variable:', ...
 
 % Depending on the choice, define the selected variable
 if choice == 1
-    selectedVariable = 'Reflectance'; % Replace with the actual variable name
+    selectedVariable = 'R'; % Replace with the actual variable name
 elseif choice == 2
-    selectedVariable = 'Transillumination'; % Replace with the actual variable name
+    selectedVariable = 'T'; % Replace with the actual variable name
 else
     error('No variable selected.');
 end
@@ -72,13 +72,15 @@ sdGL = std(double(blackMaskedImage(binaryImage)));
 % Get image dimensions
 [rows,cols,channels] = size(grayImage);
 
-if selectedVariable == 'Reflectance',
+if selectedVariable == 'R',
     % Reflectance
 
-    % Define the transformation equation (doubling intensity in this case)
+    % Define the transformation equation
     transformationEquation = @(x) (x - meanGL)/x; 
+elseif selectedVariable == 'T',
+    transformationEquation = @(x) (abs((meanGL - x)/meanGL));
 else
-    transformationEquation = @(x) ABS((meanGL - x)/meanGL);
+    error('No variable selected.');
 end
 
 % Apply the equation to each pixel
@@ -92,7 +94,13 @@ end
 
 %%
 % Set contrast threshold
-threshold = 0.1;
+if selectedVariable == 'R',
+    threshold = 0.1;
+elseif selectedVariable == 'T',
+    threshold = 0.2;
+else
+    error('No variable selected.');
+end
 
 % Create a mask for pixels with intensity above X
 mask = contrast_img > threshold;
