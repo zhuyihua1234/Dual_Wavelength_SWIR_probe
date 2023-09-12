@@ -95,9 +95,9 @@ end
 %%
 % Set contrast threshold
 if selectedVariable == 'R',
-    threshold = 0.1;
+    threshold = 0.10;
 elseif selectedVariable == 'T',
-    threshold = 0.2;
+    threshold = 0.10;
 else
     error('No variable selected.');
 end

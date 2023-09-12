@@ -1,6 +1,25 @@
 % Crop the binary mask and contrast images
-[cropped_mask,rect] = imcrop(mask);
-cropped_contrast_img = imcrop(contrast_img,rect);
+% Draw ROI in imfreehand and get ROI info
+fontSize = 16;
+imshow(img_16);
+axis on;
+title('Contrast_adjusted_image', 'FontSize', fontSize);
+set(gcf, 'Position', get(0,'Screensize')); % Maximize figure.
+
+% Ask user to draw freehand mask for Sound ROI.
+message = sprintf('Left click and hold to begin drawing targeted tooth.\nSimply lift the mouse button to finish');
+uiwait(msgbox(message));
+hFH = imfreehand(); % Actual line of code to do the drawing.
+% Create a binary image ("mask") from the ROI object.
+binaryImage_contrast = hFH.createMask();
+
+close all;
+
+% Crop images
+blackMaskedImage_contrast = contrast_img;
+blackMaskedImage_contrast(~binaryImage_contrast) = 0;
+cropped_mask = mask;
+cropped_mask(~binaryImage_contrast) = 0;
 
 % Display the binary mask image
 imshow(cropped_mask);
@@ -49,7 +68,7 @@ else
 end
 
 % Calculate the contrast within this ROI
-ROI_contrast = mean(cropped_contrast_img(selectedRegionImage));
+ROI_contrast = mean(contrast_img(selectedRegionImage));
 formattedLength = sprintf('%.6f', ROI_contrast);
 disp(['Mean ROI Contrast: ' formattedLength]);
 % Display Area of the ROI
@@ -76,4 +95,7 @@ rulerProfile = improfile(selectedRegionImage, position(:, 1), position(:, 2));
 lengthNonZeroPixels = sum(rulerProfile);
     
 disp(['Length of non-zero pixels along the ruler: ' num2str(lengthNonZeroPixels)]);
+% Display the frame number of the analyzed image
+file
+
     
