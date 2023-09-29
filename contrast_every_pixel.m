@@ -66,7 +66,7 @@ blackMaskedImage(~binaryImage) = 0;
 meanGL = mean(blackMaskedImage(binaryImage));
 sdGL = std(double(blackMaskedImage(binaryImage)));
 
-%%
+
 % Calculate contrast for every single pixel
 
 % Get image dimensions
@@ -92,7 +92,7 @@ for row = 1:rows
     end
 end
 
-%%
+
 % Set contrast threshold
 if selectedVariable == 'R',
     threshold = 0.10;
