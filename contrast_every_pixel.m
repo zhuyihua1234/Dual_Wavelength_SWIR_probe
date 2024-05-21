@@ -1,7 +1,7 @@
 %Import image
 file = uigetfile('*.*');
 raw_img = imread(file);
-img_16 = fliplr(raw_img);
+img_16 = rgb2gray(fliplr(raw_img));
 grayImage = double(img_16);
 
 %%
@@ -127,4 +127,3 @@ title('0.1 Contrast Thresholding Image', 'FontSize', fontSize);
 subplot(2,2,4);
 imshow(mask);
 title('0.1 Contrast Thresholding Mask', 'FontSize', fontSize);
-

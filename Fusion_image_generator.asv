@@ -231,13 +231,8 @@ meanGL_add09 = mean(blackMaskedImage_add09(binaryImage));
 sdGL_add09 = std(double(blackMaskedImage_add09(binaryImage)));
 
 %% Report Results
-ImageModality = {'reflectance', 'a01','a02','a03','a04','a05','a06','a07','a08','a09','transillumination'};
-ROI_Intensity = [meanGL_ref,meanGL_add01,meanGL_add02,meanGL_add03,meanGL_add04,meanGL_add05,meanGL_add06,meanGL_add07,meanGL_add08,meanGL_add09,meanGL_trans];
-ROI_STDL = [sdGL_ref,sdGL_add01,sdGL_add02,sdGL_add03,sdGL_add04,sdGL_add05,sdGL_add06,sdGL_add07,sdGL_add08,sdGL_add09,sdGL_trans];
-
-T = table(ImageModality',ROI_Intensity',ROI_STDL','VariableNames',{'Image Modality','Intensity','Standard Deviation'});
-
-disp(T);
+ImageModality = [reflectance, a01,a02,a03,a04,a05,a06,a07,a08,a09,transillumination];
+ROI_Intensity = []
 
 
 
