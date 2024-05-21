@@ -1,10 +1,10 @@
 %% Select Files
 
 file = uigetfile('*.*', 'select transillumination image');
-t_img = rgb2gray(imread(file));
+t_img = imread(file);
 
 file = uigetfile('*.*', 'select reflectance image');
-r_img = rgb2gray(imread(file));
+r_img = imread(file);
 
 
 %Compute Dual Probe Images
