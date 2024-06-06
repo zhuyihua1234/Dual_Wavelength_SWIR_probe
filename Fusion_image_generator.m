@@ -11,12 +11,11 @@ trans_sound_mean = str2double(answer(2));
 
 %% Select Files
 
-file = uigetfile('*.*', 'select transillumination image');
-t_img_raw = imread(file);
-
 file = uigetfile('*.*', 'select reflectance image');
 r_img_raw = imread(file);
 
+file = uigetfile('*.*', 'select transillumination image');
+t_img_raw = imread(file);
 
 % Unsign the 16-bit data type for subtraction
 t_img_double = double(t_img_raw);
@@ -273,7 +272,46 @@ T = table(ImageModality',ROI_Intensity',ROI_STDL','VariableNames',{'Image Modali
 
 disp(T);
 
+%% Create Folder and Save Images
+folder_name = file(1:end-5);
 
+% Create the subfolder if it doesn't exist
+if ~exist(folder_name, 'dir')
+    mkdir(folder_name);
+end
 
+% Define new file paths and save images
+subfilepath = fullfile(folder_name,'corrected_reflectance.tiff');
+imwrite(r_img_corr, subfilepath);
+
+subfilepath = fullfile(folder_name,'corrected_transillumination.tiff')
+imwrite(t_img_corr, subfilepath);
+
+subfilepath = fullfile(folder_name,'a01.tiff')
+imwrite(add_01, subfilepath);
+
+subfilepath = fullfile(folder_name,'a02.tiff')
+imwrite(add_02, subfilepath);
+
+subfilepath = fullfile(folder_name,'a03.tiff')
+imwrite(add_03, subfilepath);
+
+subfilepath = fullfile(folder_name,'a04.tiff')
+imwrite(add_04, subfilepath);
+
+subfilepath = fullfile(folder_name,'a05.tiff')
+imwrite(add_05, subfilepath);
+
+subfilepath = fullfile(folder_name,'a06.tiff')
+imwrite(add_06, subfilepath);
+
+subfilepath = fullfile(folder_name,'a07.tiff')
+imwrite(add_07, subfilepath);
+
+subfilepath = fullfile(folder_name,'a08.tiff')
+imwrite(add_08, subfilepath);
+
+subfilepath = fullfile(folder_name,'a09.tiff')
+imwrite(add_09, subfilepath);
 
 
